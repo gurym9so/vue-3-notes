@@ -12,7 +12,20 @@ export default {
   components: { Form, List },
   data() {
     return {
-      notes: ["task1", "task2", "task3"],
+      notes: [
+        {
+          title: "learn vue3",
+          tags: ["work"],
+        },
+        {
+          title: "finish course",
+          tags: ["work", "home"],
+        },
+        {
+          title: "hello",
+          tags: [],
+        },
+      ],
     };
   },
   methods: {
