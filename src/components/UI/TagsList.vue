@@ -5,9 +5,9 @@
       v-for="item in items"
       :key="item"
       @click="$emit('onItemClick', item)"
-      :class="{ isPreview: isPreview }"
+      :class="{ isPreview: isPreview, isActive: item.isActive }"
     >
-      <span>{{ item }}</span>
+      {{ item.title }}
     </div>
   </div>
 </template>
@@ -39,13 +39,9 @@ export default {
   border-radius: 22px;
   user-select: none;
   cursor: pointer;
-  &.isPreview {
-    padding: 0;
-    color: #444ce0;
-    cursor: default;
-    &:before {
-      content: "#";
-    }
+  &.isActive {
+    background-color: #444ce0;
+    color: #fff;
   }
   &.isPreview {
     padding: 0;

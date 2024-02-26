@@ -21,19 +21,36 @@ export default {
           title: "finish course",
           tags: ["work", "home"],
         },
-        {
-          title: "hello",
-          tags: [],
-        },
       ],
     };
   },
+  mounted() {
+    this.getNotes();
+  },
+  watch: {
+    notes: {
+      handler(updatedList) {
+        localStorage.setItem("notes", JSON.stringify(updatedList));
+      },
+      deep: true,
+    },
+  },
   methods: {
-    handleSubmit(note) {
+    handleSubmit(title) {
+      const note = {
+        title: title,
+        tags: [],
+      };
       this.notes.push(note);
     },
     handleRemove(index) {
       this.notes.splice(index, 1);
+    },
+    getNotes() {
+      const localNotes = localStorage.getItem("notes");
+      if (localNotes) {
+        this.notes = JSON.parse(localNotes);
+      }
     },
   },
 };
