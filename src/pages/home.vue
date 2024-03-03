@@ -1,7 +1,7 @@
 <template>
   <div class="md-body">
     <Form @onSubmit="handleSubmit" />
-    <List @onRemove="handleRemove" :items="notes" />
+    <List @onRemove="handleRemove" />
   </div>
 </template>
 
@@ -11,18 +11,7 @@ import List from "@/components/Notes/List.vue";
 export default {
   components: { Form, List },
   data() {
-    return {
-      notes: [
-        {
-          title: "learn vue3",
-          tags: ["work"],
-        },
-        {
-          title: "finish course",
-          tags: ["work", "home"],
-        },
-      ],
-    };
+    return {};
   },
   mounted() {
     this.getNotes();
@@ -37,14 +26,10 @@ export default {
   },
   methods: {
     handleSubmit(title) {
-      const note = {
-        title: title,
-        tags: [],
-      };
-      this.notes.push(note);
+      this.$store.dispatch("handleSubmit", title);
     },
     handleRemove(index) {
-      this.notes.splice(index, 1);
+      this.$store.dispatch("handleRemove", index); // диспатч вызывает action в скобках
     },
     getNotes() {
       const localNotes = localStorage.getItem("notes");
@@ -53,5 +38,6 @@ export default {
       }
     },
   },
+  computed: {},
 };
 </script>

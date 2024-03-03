@@ -1,6 +1,6 @@
 <template>
   <div class="notes-list">
-    <div class="note-item" v-for="(note, index) in items" :key="index">
+    <div class="note-item" v-for="(note, index) in getAllNotes" :key="index">
       <div class="note-header">
         <p>
           {{ note.title }}
@@ -10,11 +10,7 @@
         </p>
       </div>
       <div class="note-footer">
-        <TagsList
-          isPreview
-          v-if="note.tags && note.tags.length > 0"
-          :items="note.tags"
-        />
+        <TagsList isPreview :tags="note.tags" />
       </div>
     </div>
   </div>
@@ -24,10 +20,9 @@
 import TagsList from "@/components/UI/TagsList";
 export default {
   components: { TagsList },
-  props: {
-    items: {
-      type: Array,
-      required: true,
+  computed: {
+    getAllNotes() {
+      return this.$store.getters.getAllNotes;
     },
   },
 };

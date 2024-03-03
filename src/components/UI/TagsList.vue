@@ -2,12 +2,12 @@
   <div class="tags-list">
     <div
       class="tag-item"
-      v-for="item in items"
+      v-for="item in tags"
       :key="item"
       @click="$emit('onItemClick', item)"
       :class="{ isPreview: isPreview, isActive: item.isActive }"
     >
-      {{ item.title }}
+      {{ item.title || item }}
     </div>
   </div>
 </template>
@@ -15,13 +15,12 @@
 <script>
 export default {
   props: {
-    items: {
-      type: Array,
-      reqired: true,
-    },
     isPreview: {
       type: Boolean,
       default: false,
+    },
+    tags: {
+      type: Array,
     },
   },
 };

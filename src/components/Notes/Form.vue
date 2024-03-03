@@ -2,11 +2,7 @@
   <div class="note-form__wrapper">
     <form class="note-form" @submit.prevent="onSubmit">
       <textarea required v-model="value" placeholder="Type ur note" />
-      <TagsList
-        @onItemClick="handleTagClick"
-        :items="tags"
-        :isActive="tags.isActive"
-      />
+      <TagsList @onItemClick="handleTagClick" :tags="getAllTags" />
       <button class="btn btnPrimary" type="submit">Add new note</button>
     </form>
   </div>
@@ -19,20 +15,6 @@ export default {
   data() {
     return {
       value: "",
-      tags: [
-        {
-          title: "home",
-          isActive: false,
-        },
-        {
-          title: "work",
-          isActive: false,
-        },
-        {
-          title: "travel",
-          isActive: false,
-        },
-      ],
     };
   },
   methods: {
@@ -41,12 +23,12 @@ export default {
       this.value = "";
     },
     handleTagClick(tag) {
-      this.isActive = !this.isActive;
-      this.tags.forEach((element) => {
-        if (tag.title === element.title) {
-          element.isActive = !element.isActive;
-        }
-      });
+      this.$store.dispatch("handleTagClick", tag);
+    },
+  },
+  computed: {
+    getAllTags() {
+      return this.$store.getters.getAllTags;
     },
   },
 };
